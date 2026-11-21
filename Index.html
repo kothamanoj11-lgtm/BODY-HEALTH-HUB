@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BodyBlueprint — HealthHub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./style.css">
+</head>
+<body>
+<div class="bg-grid"></div>
+<div class="bg-glow g1"></div>
+<div class="bg-glow g2"></div>
+
+<header class="topbar">
+  <div class="brand"><span class="logo">◈</span> BODY<span>BLUEPRINT</span></div>
+  <nav>
+    <a href="#profile">Metrics</a>
+    <a href="#hydration">Hydration</a>
+    <a href="#sleep">Sleep</a>
+    <a href="#trends">Trends</a>
+  </nav>
+  <div class="unit-toggle" role="group" aria-label="Units">
+    <button id="unitMetric" class="active">Metric</button>
+    <button id="unitImperial">Imperial</button>
+  </div>
+  <button class="help-btn" id="helpBtn" title="Gestures & shortcuts (?)">?</button>
+  <span class="user-chip" id="userChip"></span>
+  <button class="help-btn" id="logoutBtn" title="Log out">⏻</button>
+</header>
+
+<main class="dashboard">
+
+  <!-- Wellness score -->
+  <section class="card score-card" id="score">
+    <h2>Daily Wellness Index</h2>
+    <div class="ring-wrap">
+      <svg viewBox="0 0 140 140" class="ring">
+        <defs>
+          <linearGradient id="ringGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%" stop-color="#00f0ff"/>
+            <stop offset="100%" stop-color="#a855ff"/>
+          </linearGradient>
+        </defs>
+        <circle cx="70" cy="70" r="58" class="ring-bg"/>
+        <circle cx="70" cy="70" r="58" class="ring-fg" id="ringFg"/>
+      </svg>
+      <div class="ring-text">
+        <div class="ring-num" id="scoreNum">0</div>
+        <div class="ring-sub">/ 100</div>
+      </div>
+    </div>
+    <div class="score-label" id="scoreLabel">—</div>
+    <div class="breakdown">
+      <div><span>BMI stability <b>30%</b></span><div class="bar"><i id="barBmi"></i></div></div>
+      <div><span>Hydration <b>35%</b></span><div class="bar"><i id="barWater"></i></div></div>
+      <div><span>Sleep <b>35%</b></span><div class="bar"><i id="barSleep"></i></div></div>
+    </div>
+    <div class="demo-row">
+      <button class="btn ghost" id="demoBtn">▶ Run demo</button>
+      <button class="btn ghost" id="sampleBtn">Load 14-day sample</button>
+    </div>
+  </section>
+
+  <!-- BMI / BMR -->
+  <section class="card" id="profile">
+    <h2>BMI &amp; BMR Calculator</h2>
+    <form id="profileForm" class="form-grid">
+      <label>Height <small id="hUnit">cm</small>
+        <input type="number" id="height" step="0.1" min="1" required></label>
+      <label>Weight <small id="wUnit">kg</small>
+        <input type="number" id="weight" step="0.1" min="1" required></label>
+      <label>Age
+        <input type="number" id="age" min="10" max="100" required></label>
+      <label>Biological sex
+        <select id="sex"><option value="male">Male</option><option value="female">Female</option></select></label>
+      <button class="btn" type="submit">Calculate</button>
+    </form>
+
+    <div class="gauge-wrap">
+      <svg viewBox="0 0 220 125" class="gauge" id="gauge"></svg>
+      <div class="gauge-read">
+        <div class="big" id="bmiVal">—</div>
+        <div class="cat" id="bmiCat">BMI</div>
+      </div>
+    </div>
+    <div class="legend">
+      <span class="lg l1">Underweight</span><span class="lg l2">Normal</span>
+      <span class="lg l3">Overweight</span><span class="lg l4">Obese</span>
+    </div>
+    <div class="stat-row">
+      <div><small>BMR</small><b id="bmrVal">—</b><em>kcal/day</em></div>
+      <div><small>Water goal</small><b id="goalVal">—</b><em>ml/day</em></div>
+    </div>
+  </section>
+
+  <!-- Water -->
+  <section class="card" id="hydration">
+    <h2>Hydration Logger</h2>
+    <div class="water-flex">
+      <div class="glass"><div class="fill" id="waterFill"></div><span id="waterPct">0%</span></div>
+      <div class="water-info">
+        <div class="big"><span id="waterVal">0</span> <small>ml</small></div>
+        <div class="muted">of <span id="waterGoal">0</span> ml goal</div>
+        <div class="btn-row">
+          <button class="btn" data-water="250">+250 ml</button>
+          <button class="btn" data-water="500">+500 ml</button>
+          <button class="btn ghost" data-water="-250">−250</button>
+        </div>
+        <button class="link" id="waterReset">Reset today</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sleep -->
+  <section class="card" id="sleep">
+    <h2>Sleep Logger</h2>
+    <div class="form-grid">
+      <label>Bedtime <input type="time" id="bed" value="23:00"></label>
+      <label>Wake time <input type="time" id="wake" value="06:30"></label>
+    </div>
+    <div class="stars" id="stars" aria-label="Restfulness rating">
+      <button data-star="1">★</button><button data-star="2">★</button><button data-star="3">★</button>
+      <button data-star="4">★</button><button data-star="5">★</button>
+      <small>Restfulness</small>
+    </div>
+    <div class="sleep-out">Total sleep: <b id="sleepTotal">0.0 h</b></div>
+    <button class="btn" id="sleepSave">Save sleep</button>
+  </section>
+
+  <!-- Advice -->
+  <section class="card wide" id="advice">
+    <h2>Personalised Advice</h2>
+    <div class="advice-list" id="adviceList"></div>
+    <p class="disclaimer">General educational wellness information based on WHO guidance. Not medical advice — consult a qualified clinician for personal health decisions.</p>
+  </section>
+
+  <!-- Calories -->
+  <section class="card" id="calories">
+    <h2>Calorie Target</h2>
+    <div class="form-grid">
+      <label>Activity
+        <select id="activity">
+          <option value="1.2">Sedentary</option>
+          <option value="1.375" selected>Light (1–3 days/wk)</option>
+          <option value="1.55">Moderate (3–5 days/wk)</option>
+          <option value="1.725">Very active (6–7 days/wk)</option>
+        </select></label>
+      <label>Goal
+        <select id="goal">
+          <option value="cut">Cut (−500)</option>
+          <option value="maintain" selected>Maintain</option>
+          <option value="bulk">Bulk (+300)</option>
+        </select></label>
+    </div>
+    <div class="big center"><span id="calVal">—</span> <small>kcal/day</small></div>
+    <div class="muted center">Maintenance (TDEE): <span id="tdeeVal">—</span> kcal</div>
+  </section>
+
+  <!-- Trends -->
+  <section class="card wide" id="trends">
+    <h2>7-Day Trend</h2>
+    <div class="chart-box"><canvas id="trendChart"></canvas></div>
+    <p class="muted" id="chartNote"></p>
+  </section>
+
+  <!-- Tools -->
+  <section class="card" id="tools">
+    <h2>Tools</h2>
+    <div class="tool-list">
+      <button class="btn ghost" id="remindBtn">🔔 Hydration reminders: Off</button>
+      <button class="btn ghost" id="exportBtn">🖨 Doctor summary (PDF)</button>
+      <button class="btn ghost danger" id="clearBtn">Clear all data</button>
+    </div>
+    <p class="muted small">Reminders fire every 90 min between 8 AM and 9 PM while this tab is open.</p>
+  </section>
+</main>
+
+<footer>BodyBlueprint · Data is stored only in your browser (localStorage). Educational use only.</footer>
+
+<!-- Printable doctor summary -->
+<section id="printSheet"></section>
+
+<div class="toast" id="toast"></div>
+
+<!-- Pop-up window -->
+<div class="modal-back" id="modalBack">
+  <div class="modal" role="dialog" aria-modal="true">
+    <button class="modal-x" id="modalX" aria-label="Close">✕</button>
+    <h3 id="mTitle"></h3>
+    <div id="mBody"></div>
+    <div class="m-actions" id="mActions"></div>
+  </div>
+</div>
+
+<!-- Futuristic effects layers -->
+<canvas id="bgfx"></canvas>
+<canvas id="fx"></canvas>
+<div id="cursorDot"></div>
+<div id="cursorRing"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="./script.js"></script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BodyBlueprint — Access Terminal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="./style.css">
+</head>
+<body class="login-body">
+<div class="bg-grid"></div>
+<div class="bg-glow g1"></div>
+<div class="bg-glow g2"></div>
+<canvas id="bgfx"></canvas>
+<div id="cursorDot"></div>
+<div id="cursorRing"></div>
+
+<main class="login-wrap">
+  <div class="card login-card" id="loginCard">
+    <div class="brand center-brand"><span class="logo">◈</span> BODY<span>BLUEPRINT</span></div>
+    <p class="muted center">Secure access terminal</p>
+
+    <div class="tabs">
+      <button class="tab active" id="tabLogin">Log in</button>
+      <button class="tab" id="tabSignup">Sign up</button>
+      <i class="tab-ind" id="tabInd"></i>
+    </div>
+
+    <form id="authForm" autocomplete="off">
+      <label>Username
+        <input id="user" type="text" minlength="3" maxlength="20" required placeholder="e.g. aarav_21"></label>
+      <label>Password
+        <div class="pw-box">
+          <input id="pass" type="password" minlength="6" required placeholder="min 6 characters">
+          <button type="button" id="showPw" class="pw-eye" title="Show / hide">👁</button>
+        </div></label>
+      <label id="confirmRow" hidden>Confirm password
+        <input id="pass2" type="password" minlength="6" placeholder="repeat password"></label>
+      <div class="strength" id="strength" hidden><i></i></div>
+      <div class="form-error" id="err"></div>
+      <button class="btn full" type="submit" id="submitBtn">Log in</button>
+    </form>
+
+    <div class="or"><span>or</span></div>
+    <button class="btn ghost full" id="guestBtn">Continue as guest</button>
+    <p class="muted small center">Demo login: accounts are stored only in this browser. Do not reuse a real password.</p>
+  </div>
+</main>
+
+<div class="toast" id="toast"></div>
+<script src="./auth.js"></script>
+</body>
+</html>
